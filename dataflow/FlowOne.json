@@ -28,6 +28,13 @@
 				},
 				{
 					"name": "lowercase"
+				},
+				{
+					"name": "CleanNameRow",
+					"description": "Remove rows that have no Guid IDs"
+				},
+				{
+					"name": "RemoveRows"
 				}
 			],
 			"scriptLines": [
@@ -55,9 +62,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> RemoveColumns",
-				"RemoveColumns derive(OID = lower(OID),",
+				"RemoveRows derive(OID = lower(OID),",
 				"          QID = lower(QID),",
 				"          SID = lower(SID)) ~> lowercase",
+				"RemoveColumns derive(Name = replace(Name, '\"', '')) ~> CleanNameRow",
+				"CleanNameRow alterRow(deleteIf(isNull(OID) || isNull(QID) || isNull(SID))) ~> RemoveRows",
 				"lowercase sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
