@@ -59,7 +59,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> RemoveColumns",
-				"RemoveColumns derive(Name = iif(size(split(Name, '\\r\\n')) > 1 , split(Name, '\\r\\n')[1], Name)) ~> NameClean",
+				"RemoveColumns derive(Name = iif(size(split(Name, '\\r\\n')) > 1 , split(Name, '\\r\\n')[2], Name)) ~> NameClean",
 				"NameClean derive(OID = lower(OID),",
 				"          QID = lower(QID),",
 				"          SID = lower(SID)) ~> lowercase",
