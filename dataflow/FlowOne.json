@@ -66,7 +66,7 @@
 				"          QID = lower(QID),",
 				"          SID = lower(SID)) ~> lowercase",
 				"RemoveColumns derive(Name = replace(Name, '\"', '')) ~> CleanNameRow",
-				"CleanNameRow alterRow(deleteIf(isNull(OID) || isNull(QID) || isNull(SID))) ~> RemoveRows",
+				"CleanNameRow alterRow(deleteIf(isNull(OID) && isNull(QID) && isNull(SID))) ~> RemoveRows",
 				"lowercase sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
