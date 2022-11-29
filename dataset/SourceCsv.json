@@ -1,0 +1,64 @@
+{
+	"name": "SourceCsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "BlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "sharepointdokument_csv-comma.csv",
+				"container": "spcsv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Modified",
+				"type": "String"
+			},
+			{
+				"name": "Modified By",
+				"type": "String"
+			},
+			{
+				"name": "S�kerhetsdatablad",
+				"type": "String"
+			},
+			{
+				"name": "lg_complaint.activityid",
+				"type": "String"
+			},
+			{
+				"name": "opportunity.opportunityid",
+				"type": "String"
+			},
+			{
+				"name": "quote.quoteid",
+				"type": "String"
+			},
+			{
+				"name": "salesorder.salesorderid",
+				"type": "String"
+			},
+			{
+				"name": "Item Type",
+				"type": "String"
+			},
+			{
+				"name": "Path",
+				"type": "String"
+			}
+		]
+	}
+}
