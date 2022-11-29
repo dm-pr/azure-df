@@ -12,7 +12,15 @@
 					"name": "SourceBlob"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DbTable",
+						"type": "DatasetReference"
+					},
+					"name": "Destination"
+				}
+			],
 			"transformations": [
 				{
 					"name": "RemoveColumns",
@@ -54,7 +62,17 @@
 				"RemoveColumns derive(Name = iif(size(split(Name, '\\r\\n')) > 1 , split(Name, '\\r\\n')[1], Name)) ~> NameClean",
 				"NameClean derive(OID = lower(OID),",
 				"          QID = lower(QID),",
-				"          SID = lower(SID)) ~> lowercase"
+				"          SID = lower(SID)) ~> lowercase",
+				"lowercase sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> Destination"
 			]
 		}
 	}

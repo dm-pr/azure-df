@@ -1,0 +1,16 @@
+{
+	"name": "DbTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "sharepointdata"
+		}
+	}
+}
