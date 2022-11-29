@@ -1,0 +1,36 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SourceCsv",
+						"type": "DatasetReference"
+					},
+					"name": "SourceBlob"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          Name as string,",
+				"          Modified as string,",
+				"          {Modified By} as string,",
+				"          {S�kerhetsdatablad} as string,",
+				"          {lg_complaint.activityid} as string,",
+				"          {opportunity.opportunityid} as string,",
+				"          {quote.quoteid} as string,",
+				"          {salesorder.salesorderid} as string,",
+				"          {Item Type} as string,",
+				"          Path as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> SourceBlob"
+			]
+		}
+	}
+}
