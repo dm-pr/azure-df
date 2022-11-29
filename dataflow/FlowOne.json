@@ -35,6 +35,9 @@
 				},
 				{
 					"name": "RemoveRows"
+				},
+				{
+					"name": "AddNewColumns"
 				}
 			],
 			"scriptLines": [
@@ -62,11 +65,13 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> RemoveColumns",
-				"RemoveRows derive(OID = lower(OID),",
+				"AddNewColumns derive(OID = lower(OID),",
 				"          QID = lower(QID),",
 				"          SID = lower(SID)) ~> lowercase",
 				"RemoveColumns derive(Name = replace(Name, '\"', '')) ~> CleanNameRow",
 				"CleanNameRow alterRow(deleteIf(isNull(OID) && isNull(QID) && isNull(SID))) ~> RemoveRows",
+				"RemoveRows derive(RealPath = ERROR_FUNCTION(''),",
+				"          AssemblyId = ERROR_FUNCTION('')) ~> AddNewColumns",
 				"lowercase sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
