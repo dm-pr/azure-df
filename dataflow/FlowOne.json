@@ -38,9 +38,6 @@
 				},
 				{
 					"name": "AddNewColumns"
-				},
-				{
-					"name": "surrogateKey1"
 				}
 			],
 			"scriptLines": [
@@ -68,18 +65,14 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> RemoveColumns",
-				"surrogateKey1 derive(OID = lower(OID),",
+				"AddNewColumns derive(OID = lower(OID),",
 				"          QID = lower(QID),",
 				"          SID = lower(SID)) ~> lowercase",
 				"RemoveColumns derive(Name = replace(Name, '\"', '')) ~> CleanNameRow",
 				"CleanNameRow alterRow(deleteIf(isNull(OID)&&isNull(QID)&&isNull(SID))) ~> RemoveRows",
 				"RemoveRows derive(RealPath = '',",
 				"          AssemblyId = '',",
-				"          Matched = false(),",
-				"          Id = 1) ~> AddNewColumns",
-				"AddNewColumns keyGenerate(output(Id as long),",
-				"     startAt: 1L,",
-				"     stepValue: 1L) ~> surrogateKey1",
+				"          Matched = false()) ~> AddNewColumns",
 				"lowercase sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
