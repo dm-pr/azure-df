@@ -23,8 +23,7 @@
 			],
 			"transformations": [
 				{
-					"name": "RemoveColumns",
-					"description": "Removing columns"
+					"name": "RemoveColumns"
 				},
 				{
 					"name": "lowercase"
@@ -51,11 +50,12 @@
 				"          Name as string,",
 				"          Modified as string,",
 				"          {Modified By} as string,",
-				"          {S�kerhetsdatablad} as string,",
+				"          {Säkerhetsdatablad} as string,",
 				"          {lg_complaint.activityid} as string,",
 				"          {opportunity.opportunityid} as string,",
 				"          {quote.quoteid} as string,",
 				"          {salesorder.salesorderid} as string,",
+				"          Klassificering as string,",
 				"          {Item Type} as string,",
 				"          Path as string",
 				"     ),",
@@ -65,9 +65,14 @@
 				"DeleteOldRows select(mapColumn(",
 				"          Name,",
 				"          Modified,",
-				"          OID = {opportunity.opportunityid},",
-				"          QID = {quote.quoteid},",
-				"          SID = {salesorder.salesorderid}",
+				"          {Modified By},",
+				"          {S�kerhetsdatablad},",
+				"          activityid = {lg_complaint.activityid},",
+				"          opportunityid = {opportunity.opportunityid},",
+				"          quoteid = {quote.quoteid},",
+				"          salesorderid = {salesorder.salesorderid},",
+				"          {Item Type},",
+				"          Path",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> RemoveColumns",
