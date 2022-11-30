@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "sharepointdokument.csv",
+				"fileName": "sharepointfiler.csv",
 				"container": "spcsv"
 			},
 			"columnDelimiter": ",",
