@@ -41,6 +41,9 @@
 				},
 				{
 					"name": "SortBydate"
+				},
+				{
+					"name": "DeleteOldRows"
 				}
 			],
 			"scriptLines": [
@@ -59,12 +62,13 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> SourceBlob",
-				"SortBydate select(mapColumn(",
+				"DeleteOldRows select(mapColumn(",
 				"          Name,",
 				"          OID = {opportunity.opportunityid},",
 				"          QID = {quote.quoteid},",
 				"          SID = {salesorder.salesorderid},",
-				"          Path",
+				"          Path,",
+				"          Modified",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> RemoveColumns",
@@ -77,6 +81,7 @@
 				"          AssemblyId = '',",
 				"          Matched = false()) ~> AddNewColumns",
 				"SourceBlob sort(desc(Modified, true)) ~> SortBydate",
+				"SortBydate alterRow(deleteIf((!isDate(Modified)) ||  (toDate(Modified) < toDate('2019-12-31')))) ~> DeleteOldRows",
 				"lowercase sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
