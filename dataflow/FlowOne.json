@@ -38,6 +38,9 @@
 				},
 				{
 					"name": "AddNewColumns"
+				},
+				{
+					"name": "SortBydate"
 				}
 			],
 			"scriptLines": [
@@ -56,7 +59,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> SourceBlob",
-				"SourceBlob select(mapColumn(",
+				"SortBydate select(mapColumn(",
 				"          Name,",
 				"          OID = {opportunity.opportunityid},",
 				"          QID = {quote.quoteid},",
@@ -73,6 +76,7 @@
 				"RemoveRows derive(RealPath = '',",
 				"          AssemblyId = '',",
 				"          Matched = false()) ~> AddNewColumns",
+				"SourceBlob sort(desc(Modified, true)) ~> SortBydate",
 				"lowercase sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
